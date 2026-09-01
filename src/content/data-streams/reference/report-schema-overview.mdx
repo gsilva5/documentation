@@ -87,7 +87,7 @@ Each stream category uses one or more report schemas to deliver data. Several ca
       <td>Real-world asset prices (multiple price points and enhanced market data)</td>
       <td>
         <code>mid</code>, <code>bid</code>, <code>ask</code>, <code>bidVolume</code>, <code>askVolume</code>,{" "}
-        <code>lastTradedPrice</code>, <code>marketStatus</code>
+        <code>marketStatus</code>
       </td>
     </tr>
     <tr>
@@ -155,7 +155,7 @@ While the Data Streams architecture is designed to deliver updates at least once
 [Chainlink RWA streams](/data-streams/rwa-streams) deliver real-world asset pricing through two report schemas:
 
 - **[RWA Standard (v8)](/data-streams/reference/report-schema-v8)** — standard RWA format with consolidated mid price, market status, and freshness indicators. Used by the majority of RWA streams.
-- **[RWA Advanced (v11)](/data-streams/reference/report-schema-v11)** — adds bid/ask prices, volume depth, last traded price, nanosecond-precision timestamps, and expanded market status values. Supports extended trading sessions where applicable.
+- **[RWA Advanced (v11)](/data-streams/reference/report-schema-v11)** — provides bid and ask prices, volume depth, nanosecond-precision timestamps, and expanded market-status values.
 
 ### RWA Standard (v8)
 
@@ -165,7 +165,7 @@ RWA assets trade on traditional exchanges during [market hours](/data-streams/ma
 
 ### RWA Advanced (v11)
 
-The [RWA Advanced (v11)](/data-streams/reference/report-schema-v11) report schema offers enhanced market data capabilities with additional fields: liquidity-weighted mid (`mid`), consensus bid and ask prices (`bid`, `ask`), resting book depth (`bidVolume`, `askVolume`), most recent execution (`lastTradedPrice`), nanosecond precision freshness (`lastSeenTimestampNs`), and expanded market status (`marketStatus`) that distinguishes between pre-market, regular hours, post-market, overnight, and weekend periods.
+The [RWA Advanced (v11)](/data-streams/reference/report-schema-v11) report schema offers liquidity-weighted mid (`mid`), consensus bid and ask prices (`bid`, `ask`), resting-book depth (`bidVolume`, `askVolume`), nanosecond-precision freshness (`lastSeenTimestampNs`), and expanded market status (`marketStatus`). The schema also contains `lastTradedPrice`, which is deprecated and should not be used in new integrations or as a production input.
 
 These advanced fields enable protocols to implement more sophisticated risk management and settlement logic. Where applicable, streams using this schema can provide coverage across extended trading sessions including pre-market, post-market, and overnight hours — though extended hours availability varies by stream. See individual [RWA stream details](/data-streams/rwa-streams?schema=v11) for specific coverage and the [RWA Advanced (v11) reference](/data-streams/reference/report-schema-v11) for complete field specifications.
 

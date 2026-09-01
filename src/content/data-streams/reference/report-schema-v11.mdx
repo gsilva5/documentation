@@ -37,6 +37,15 @@ Chainlink Data Streams that use the RWA Advanced (v11) schema adhere to the stru
 
 <SchemaFieldsTable schema="v11" />
 
+<Aside type="caution" title="Deprecated: lastTradedPrice">
+  The `lastTradedPrice` field is deprecated. New integrations must not depend on this field, and existing integrations
+  should remove any production dependency by **October 1, 2026**.
+
+  The field will remain in the RWA Advanced (v11) schema and may continue to be populated where source data is
+  available. Beginning October 1, 2026, however, it will no longer be monitored for availability, accuracy, or data
+  quality. Any continued use is unsupported and at the user's own risk.
+</Aside>
+
 ### Market Status Values
 
 <Aside type="caution" title="Use marketStatus, not timestamps">
@@ -88,7 +97,7 @@ Implement appropriate safeguards based on market status — such as pausing trad
 #### Last Seen Timestamp
 
 - `lastSeenTimestampNs` helps applications detect stale data for the mid price, especially important during market transitions and holidays.
-- **IMPORTANT**: The `lastSeenTimestampNs` field reflects the timestamp of the last update for the `mid` price only. Do not assume this timestamp applies to `bid`, `ask`, `bidVolume`, `askVolume`, or `lastTradedPrice`. Different fields may have been updated at different times.
+- **IMPORTANT**: The `lastSeenTimestampNs` field reflects the timestamp of the last update for the `mid` price only. Do not assume this timestamp applies to `bid`, `ask`, `bidVolume`, or `askVolume`.
 - **Do not use `lastSeenTimestampNs` (or any other timestamp field) to determine which stream to select or to infer whether the market is open.** Timestamps indicate when data was last recorded, not whether the market is currently active. Use the `marketStatus` field as the authoritative signal for market availability and stream selection.
 
 #### `lastSeenTimestampNs` is not guaranteed to be monotonic

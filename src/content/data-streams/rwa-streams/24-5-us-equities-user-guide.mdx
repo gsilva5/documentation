@@ -16,7 +16,7 @@ import { Aside, ClickToZoom } from "@components"
 import { Tabs } from "@components/Tabs"
 import { FeedList } from "@features/feeds"
 
-Chainlink 24/5 U.S. Equities Streams provide real-time equity pricing data across all major U.S. single-name equities and ETFs spanning regular, pre-market, post-market, and overnight trading sessions. The [advanced RWA schema](/data-streams/reference/report-schema-v11) includes fields such as market status flags, best bid and ask prices, bid and ask volumes, staleness measures, and last traded prices to facilitate more advanced execution and risk management.
+Chainlink 24/5 U.S. Equities Streams provide real-time equity pricing data across major U.S. single-name equities and ETFs spanning regular, pre-market, post-market, and overnight trading sessions. The [advanced RWA schema](/data-streams/reference/report-schema-v11) includes market status flags, best bid and ask prices, bid and ask volumes, and staleness measures to support advanced execution and risk management.
 
 <ClickToZoom src="/images/data-streams/24-5-availability.png" caption="24/5 Streams Availability Diagram" />
 
@@ -28,12 +28,13 @@ Developers are responsible for choosing the appropriate feed and ensuring that t
 
 The data is delivered using the [RWA Advanced (v11) schema](/data-streams/reference/report-schema-v11).
 
-This advanced RWA schema is built to support 24/5 streams, including DON Consensus `mid` price (with its corresponding timestamp `lastSeenTimestampNs` for staleness tracking), order book depth (`bid`, `ask`, `bidVolume`, `askVolume`), execution data (`lastTradedPrice`), and granular market phases (`marketStatus` values for Pre-market, Regular hours, Post-market, Overnight, and Closed).
+The RWA Advanced (v11) schema supports 24/5 streams with a DON consensus `mid` price, `lastSeenTimestampNs` for mid-price staleness tracking, order-book data (`bid`, `ask`, `bidVolume`, and `askVolume`), and granular market phases through `marketStatus`.
+
+The schema also retains the deprecated `lastTradedPrice` field for compatibility. New integrations must not depend on this field, and existing integrations should remove any production dependency by **October 1, 2026**. See the [RWA Advanced v11 schema documentation](/data-streams/reference/report-schema-v11) for the full deprecation notice.
 
 <Aside type="caution" title="Important: Timestamp Scope">
-  The `lastSeenTimestampNs` field reflects the timestamp of the last update for the `mid` price only. This timestamp
-  does **not** apply to other fields in the report such as `bid`, `ask`, `bidVolume`, `askVolume`, or `lastTradedPrice`.
-  Different fields may have been updated at different times.
+  The `lastSeenTimestampNs` field reflects the timestamp of the last update for the `mid` price only. It does not apply
+  to `bid`, `ask`, `bidVolume`, or `askVolume`.
 </Aside>
 
 <Aside type="note" title="Bid/Ask Volume Interpretation">

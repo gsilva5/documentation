@@ -198,7 +198,11 @@ export const REPORT_SCHEMA_DEFINITIONS: Record<string, SchemaDefinition> = {
       { field: "bidVolume", type: "int192", description: "Volume at bid price" },
       { field: "ask", type: "int192", description: "Median ask price" },
       { field: "askVolume", type: "int192", description: "Volume at ask price" },
-      { field: "lastTradedPrice", type: "int192", description: "Last traded price" },
+      {
+        field: "lastTradedPrice",
+        type: "int192",
+        description: "Deprecated. Retained for schema compatibility but should not be used as a production input.",
+      },
       {
         field: "marketStatus",
         type: "uint32",
